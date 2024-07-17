@@ -1,4 +1,8 @@
+{% extends 'main.html' %} {% block content %}
 <h1>Projects</h1>
+
+{% for i in projects %} {{ i }} {% endfor %}
+
 <p>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -8,4 +12,4 @@
   in culpa qui officia deserunt mollit anim id est laborum.
 </p>
 
-{% include 'navbar.html' %}
+{% endblock content %}
