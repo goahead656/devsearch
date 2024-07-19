@@ -5,4 +5,11 @@ from .models import Project
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
-        fields = "__all__"
+        # control the attribute of the model displayed
+        fields = [
+            "title",
+            "describtion",
+            "demo_link",
+            "source_link",
+            "tags",
+        ]
