@@ -1,15 +1,19 @@
 {% extends 'main.html' %} {% block content %}
 <h1>Single Project</h1>
 <p>
-  <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-  eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-  in culpa qui officia deserunt mollit anim id est laborum. -->
-  {{project}}
-  {{project.id}}
-  
+  {{project.featured_image.url}}
+  <br>
+  <img style="max-width: 200px;" src="{{ project.featured_image.url }}">
+
+  <h1>{{project.title}}</h1>
+  <hr>
+  {% for tag in project.tags.all %}
+  <span style="border:1px solid grey">{{tag}}</span>
+  {% endfor %}
+  <hr>
+  <br>
+  <p>{{project.description}}</p>
+
 </p>
 
 {% endblock content %}

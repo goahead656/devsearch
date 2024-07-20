@@ -8,7 +8,8 @@ class ProjectForm(ModelForm):
         # control the attribute of the model displayed
         fields = [
             "title",
-            "describtion",
+            "description",
+            "featured_image",
             "demo_link",
             "source_link",
             "tags",
