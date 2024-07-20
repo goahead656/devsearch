@@ -123,16 +123,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+# necessary argument
 STATIC_URL = "/static/"
-# images store position
+# images prefix url,help to manage these images
 MEDIA_URL = "/images/"
 
+# where to find static files
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 # media files 
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')
-# store all static files
+# store all static files(when run python manage.py collectstatic)
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 # Default primary key field type
