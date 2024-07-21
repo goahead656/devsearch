@@ -20,7 +20,7 @@ def project(request, pk):
 def projectForm(request):
     form = ProjectForm()
     context = {"form": form}
-    return render(request, "projects/create-project.html", context)
+    return render(request, "projects/project-form.html", context)
 
 
 # create a new project
@@ -35,7 +35,7 @@ def createProject(request):
             return redirect("projects")
 
     context = {"form": form}
-    return render(request, "projects/project_form.html", context)
+    return render(request, "projects/create-project.html", context)
 
 
 def updateProject(request, pk):
