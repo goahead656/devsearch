@@ -1,6 +1,6 @@
-# Django项目学习
+# Django框架学习
 
-### 本项目主要是是学习后端内容，后端组件如何沟通，如何向前端api进行展示
+### 本项目主要是是记录自己学习后端过程，后端组件如何沟通，如何向前端API进行展示
 
 #### 2024.7.16
 
@@ -80,3 +80,40 @@ urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 重点：使用`MEDIA_URL`和`STATIC_URL`这个参数主要是为了实现后面的`url mapping`，不然后面的`url`很难做到准确的`mapping`。
 
 其中涉及到`static files`的整合，此时需要使用`python .\manage.py collectstatic `,回生成`staticfiles`文件夹这个内容，这个文件夹会将所有的静态文件收集。但是也有一个问题，我们需要使用这些静态文件向外展示，所以此时就引入了[`whitenoise`](https://whitenoise.readthedocs.io/en/latest/)依赖，导入该依赖可以解决静态文件无法使用的问题。
+
+#### 2024.7.21(实现theme的添加,添加users app，实现users app初始化界面)
+
+##### 添加theme
+
+将生成的前端文件结合`django`中`templates`语法进行结合，将重复的模块采取`for loop`的形式展示，从而减少代码量，注意：将添加的html文件粘贴到对应的templates模块中
+
+[`templates language`](https://docs.djangoproject.com/en/5.0/ref/templates/language/)
+
+##### 添加users app
+
+`python manager.py startapp users`：添加users模块
+
+配置`setting.py`文件，添加`users.apps.UsersConfig`到`INSTALLED_APPS`中，配置模块能被主项目识别到
+
+配置`urls.py`文件，将`path("",include("users.urls"))`添加到`urlpattern`变量中，项目可以识别到`users`项目对应的`urls`
+
+编写测试文件，首先书写`views`中`render`函数，创建`urls.py`文件，书写`url`的转向，编写`templates/users`文件夹下的`html`文件，还是继承自`main.html`，使用对应的`navbar.html`文件
+
+书写`model.py`文件，编写对应的数据库文件，执行`python manage.py makemigrations`执行，最后执行`python manage.py migrate`实现数据库的迁移
+
+注意：这里使用到了[`django user`](https://docs.djangoproject.com/en/5.0/ref/contrib/auth/)，可以参考这边文档了解`django user`的一些属性
+
+#### 2024.7.22
+
+实现了个人页面的书写，同时添加了`Skill`数据库内容，并将`Profile`数据库内容添加一行`location`特征
+
+
+
+
+
+
+
+
+
+
+

@@ -25,7 +25,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     # append projects' urls, help to find projects' url
-    path("", include("projects.urls")),
+    path("projects/", include("projects.urls")),
+    # append users urls to help to find users url
+    path("",include("users.urls")),
 ]
 
 # url mapping
