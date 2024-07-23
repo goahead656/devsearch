@@ -107,7 +107,7 @@ urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 
 实现了个人页面的书写，同时添加了`Skill`数据库内容，并将`Profile`数据库内容添加一行`location`特征
 
-
+`Signal`：`django`中[`signal`](https://docs.djangoproject.com/en/5.0/topics/signals/)的传递，用来判断用户创建时的一系列操作，从而可以创建一系列连锁条件数据库。
 
 
 
