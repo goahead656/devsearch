@@ -23,6 +23,7 @@ def loginPage(request):
             user = User.objects.get(username=username)
         except:
             messages.error(request,'Username does not exist')
+            return redirect('login')
 
         user = authenticate(request,username=username,password=password)
 
@@ -31,12 +32,14 @@ def loginPage(request):
             return redirect('profiles')
         else:
             messages.error(request,'Username OR password is incorrect')
+            return redirect('login')
+
     context = {'page':page}
     return render(request,'users/login_register.html',context)
 
 def logoutUser(request):
     logout(request)
-    messages.error(request,'Username does not exist')
+    messages.info(request,'User was logged out!')
     return redirect('login')
 
 def registerUser(request):
