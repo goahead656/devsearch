@@ -107,23 +107,29 @@ urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 
 实现了个人页面的书写，同时添加了`Skill`数据库内容，并将`Profile`数据库内容添加一行`location`特征
 
-`Signal`：`django`中[`signal`](https://docs.djangoproject.com/en/5.0/topics/signals/)的传递，用来判断用户创建时的一系列操作，从而可以创建一系列连锁条件数据库。
-
-`post_save`:
-
-`post_delete`:
+`Signal`：`django`中[`signal`](https://docs.djangoproject.com/en/5.0/topics/signals/)的传递，用来判断用户创建时的一系列操作，从而可以创建一系列连锁条件数据库。对应[post_save,post_delete](https://docs.djangoproject.com/en/5.0/ref/signals/)的参考对应`doc`. 代码中的[created](https://docs.djangoproject.com/en/5.0/ref/signals/#post-save)参数的文档链接在此处，点击即到.
 
 #### 2024.7.25
 
-user login ，logout and Flash message (django message)
+添加用户的`login`页面，`logout`页面，在这里用到了[`authenticate`](https://docs.djangoproject.com/en/5.0/topics/auth/default/#how-to-log-a-user-in)验证，具体细节直接参考这部分`documentation`，同时也建议看一看`doc`上面的`User`部分信息，加深对于核心模块的理解。
+
+基于`Django`的[`message`](https://docs.djangoproject.com/en/5.0/ref/contrib/messages/#displaying-messages)将登录遇到的一些报错信息进行展示，并且使用对应的`JS`实现`message`部分的信息，添加[`message`](https://docs.djangoproject.com/en/5.0/ref/contrib/messages/#adding-a-message)部分的信息，例如`message.info()`等信息如何进行展示，参考文档即可，结合代码理解
 
 #### 2024.7.26
 
-实现了register page，将login和register页面进行美化
+添加了`register`页面，创建对应的`form`代码，用于将保存的数据提交到数据库中。在保存用户名的时候，统一将用户名保存为小写，避免在注册后出现两个同名用户。最后将`login`和`register`页面进行美化，结合对应`Django`的`template`语法进行优化代码。
 
 #### 2024.7.27
 
-添加了`account`页面，将前端页面和数据库中存储的信息进行对接
+添加了`account`页面，将前端页面和数据库中存储的信息进行对接。
+
+添加用户信息编辑部分的内容，书写对应的`urls.py`，`views.py`以及对应的`html`文件，注意这部分的`form`需要自定义，只要是涉及到提交的内容，修改的内容，都需要自定义`form`模块。
+
+注意最后将用户和他们的项目进行绑定，从`request`中获取到`user`，再从`user`中获取到对应的`profiles`和`projects`，将这些信息进行绑定。
+
+一定要注意`Django`中的`ORM`，一对多，一对一这些关系都可以在`Django`中实现为双向绑定，`ORM`这部分内容容我补补相关博客再来总结。
+
+
 
 
 
