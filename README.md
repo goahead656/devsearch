@@ -109,6 +109,10 @@ urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 
 `Signal`：`django`中[`signal`](https://docs.djangoproject.com/en/5.0/topics/signals/)的传递，用来判断用户创建时的一系列操作，从而可以创建一系列连锁条件数据库。
 
+`post_save`:
+
+`post_delete`:
+
 #### 2024.7.25
 
 user login ，logout and Flash message (django message)
@@ -117,7 +121,9 @@ user login ，logout and Flash message (django message)
 
 实现了register page，将login和register页面进行美化
 
+#### 2024.7.27
 
+添加了`account`页面，将前端页面和数据库中存储的信息进行对接
 
 
 
