@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import User,Profiles
+from .models import User,Profiles,Skill
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -38,4 +38,18 @@ class ProfileForm(ModelForm):
 
         for name,field in self.fields.items():
             field.widget.attrs.update({'class':'input'})
+
+class SkillForm(ModelForm):
+    class Meta:
+        model = Skill
+        fields = "__all__"
+        exclude = ['owner']
+
+    # change input style
+    def __init__(self,*args,**kwargs):
+        super(SkillForm,self).__init__(*args,**kwargs)
+
+        for name,field in self.fields.items():
+            field.widget.attrs.update({'class':'input'})
+
 

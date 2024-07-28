@@ -9,5 +9,8 @@ urlpatterns = [
     path('register/',views.registerUser,name="register"),
     path('account/',views.userAccount,name="account"),
     path('edit-account/',views.edit_account,name="edit-account"),
+    path('create-skills/',views.createSkill,name="create-skills"),
+    path("update-skills/<str:pk>",views.updateSkill,name="update-skills"),
+    path("delete-skills/<str:pk>",views.deleteSkill,name="delete-skills"),
 
 ]

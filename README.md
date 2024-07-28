@@ -1,6 +1,6 @@
 # Django框架学习
 
-### 本项目主要是是记录自己学习后端过程，后端组件如何沟通，如何向前端API进行展示
+### 本项目主要是是记录自己学习后端过程以及一些心得
 
 #### 2024.7.16
 
@@ -135,7 +135,15 @@ urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 
 关于操作中的双下划线，可以参考以下英文解释，加深理解。关于`Django`的这些关系可以直接查看[`Django model`](https://docs.djangoproject.com/en/5.0/topics/db/models/)的官方文档。
 
-Under the hood, the string is split by these underscores, and the tokens are processed separately. `name__contains` gets changed into `attribute: name, filter: contains`. In other programming languages, you may use arrows instead, such as `name->contains` in PHP. 
+Under the hood, the string is split by these underscores, and the tokens are processed separately. `name__contains` gets changed into `attribute: name, filter: contains`. In other programming languages, you may use arrows instead, such as `name->contains` in `PHP`
+
+#### 2024.7.28
+
+主要处理了`skills`的添加、编辑和删除操作，这些操作和`projects`中的操作基本一致
+
+梳理一下添加的流程，首先简单书写一个`html`页面，页面中提供一个表单`POST`请求，然后去`Django`项目中`view.py`中书写一个对应的函数处理文件，刚开始只需要写一个`render`,然后在`urls.py`文件中书写对应的`url`映射和函数触发，同时并为这个`url`提供一个`name`，方便书写`html`文件的调用类似于这种`{% url 'login' %}`这种方式，这就是整个流程。
+
+在刚开始，需要自己手动在`admin`页面中创建一些数据记录，然后使用`Django`的`ORM`特性以及一些方法取得对应的数据，此时你可能就会想到为什么不自己创建数据记录呢，别急，接下来就说如何自己创建数据记录，自己创建数据记录需要涉及到[`ModelForm`](https://docs.djangoproject.com/en/5.0/topics/forms/modelforms/#django.forms.ModelForm),这部分可以参考7.17的记录。update、delete都会涉及到表单，但是update同时还会涉及到[`ModelForm`](https://docs.djangoproject.com/en/5.0/topics/forms/modelforms/#django.forms.ModelForm),而delete只会涉及到`POST`的`form`请求，这里尤其需要注意，涉及到`POST`请求时，一定要注意需要`{% csrf_token %}`这个属性，并且这个属性一定要在单独一行，否则会报错。
 
 
 
