@@ -129,6 +129,16 @@ urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 
 一定要注意`Django`中的`ORM`，一对多，一对一这些关系都可以在`Django`中实现为双向绑定，`ORM`这部分内容容我补补相关博客再来总结。
 
+补上之前的[`ORM`](https://opensource.com/article/17/11/django-orm)的相关内容，`Django`的`ORM`帮我们完成了数据库的一系列操作，包括数据库中的join操作，通过`ManytoManyField`、`OnetoOneField`等属性完成双向绑定，也就是关系型数据库中的`join`操作，使得在调用数据库的极大的提高了我们的效率，`Django`当之无愧的最好用的`WEB`开发框架。
+
+要想进入对应的`python`命令行中操作，执行`python manager.py shell`，进入命令行之后就可以引入我们之前创建的一系列模型，并对他们进行[`CRUD`](https://tutorial.djangogirls.org/en/django_orm/)操作。
+
+关于操作中的双下划线，可以参考以下英文解释，加深理解。关于`Django`的这些关系可以直接查看[`Django model`](https://docs.djangoproject.com/en/5.0/topics/db/models/)的官方文档。
+
+Under the hood, the string is split by these underscores, and the tokens are processed separately. `name__contains` gets changed into `attribute: name, filter: contains`. In other programming languages, you may use arrows instead, such as `name->contains` in PHP. 
+
+
+
 
 
 
