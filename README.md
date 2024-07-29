@@ -145,9 +145,41 @@ Under the hood, the string is split by these underscores, and the tokens are pro
 
 在刚开始，需要自己手动在`admin`页面中创建一些数据记录，然后使用`Django`的`ORM`特性以及一些方法取得对应的数据，此时你可能就会想到为什么不自己创建数据记录呢，别急，接下来就说如何自己创建数据记录，自己创建数据记录需要涉及到[`ModelForm`](https://docs.djangoproject.com/en/5.0/topics/forms/modelforms/#django.forms.ModelForm),这部分可以参考7.17的记录。update、delete都会涉及到表单，但是update同时还会涉及到[`ModelForm`](https://docs.djangoproject.com/en/5.0/topics/forms/modelforms/#django.forms.ModelForm),而delete只会涉及到`POST`的`form`请求，这里尤其需要注意，涉及到`POST`请求时，一定要注意需要`{% csrf_token %}`这个属性，并且这个属性一定要在单独一行，否则会报错。
 
+#### 2024.7.29
+
+今天主要完成`search`和`pageup`功能。
+
+`search`功能的实现可以使用第三方库[`Django filter`](https://django-filter.readthedocs.io/en/stable/index.html)和自己手动实现相关搜索的内容。
+
+首先介绍自己手动实现`search`功能的方法：由于`Django`中出色的`ORM`实现，使得开发者可以以较少的代码完成这个庞大的搜索过程。
+
+搜索的核心过程为获取到前端传来的搜索参数，利用python语法从数据库中找到对应的对象，同时将搜索到的参数返回。部分核心代码如下所示，基本逻辑大同小异。
+
+```PYTHON
+from .models import Project,Tag
 
 
+def searchProjects(request):
+    search_query = ''
 
+    if request.GET.get('search_query'):
+        search_query = request.GET.get('search_query')
+
+    print(search_query)
+
+    tags = Tag.objects.filter(name__icontains=search_query)
+
+    projects = Project.objects.distinct().filter(
+        Q(title__icontains=search_query) |
+        Q(description__icontains=search_query) |
+        Q(owner__name__icontains=search_query) |
+        Q(tags__in=tags)
+    )
+
+    return projects,search_query
+```
+
+使用第三方库文件的方式稍后在学完`pageup`之后进行实践
 
 
 

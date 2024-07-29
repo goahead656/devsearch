@@ -4,11 +4,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Project
 from .forms import ProjectForm
+from .utils import searchProjects
 
 # All projects
 def projects(request):
-    projects = Project.objects.all()
-    return render(request, "projects/projects.html", {"projects": projects})
+    projects,search_query =searchProjects(request)
+    
+    # projects = Project.objects.all()
+    context = {"projects":projects,"search_query":search_query}
+    return render(request, "projects/projects.html", context)
 
 
 # Single project
