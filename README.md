@@ -179,7 +179,9 @@ def searchProjects(request):
     return projects,search_query
 ```
 
-使用第三方库文件的方式稍后在学完`pageup`之后进行实践
+使用第三方库文件的方式稍后在学完[`pageup`](https://docs.djangoproject.com/en/5.0/topics/pagination/)之后进行实践，官方文档给出了很具体的解释，关于这些翻页的功能，以及一些属性的使用，直接调用`from django.core.paginator import Paginator`即可完成这个库文件的引用。
+
+
 
 
 
