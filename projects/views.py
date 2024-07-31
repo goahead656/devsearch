@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Project
-from .forms import ProjectForm
+from .forms import ProjectForm,ReviewForm
 from .utils import searchProjects,paginateProjects
 
 # All projects
@@ -20,8 +20,21 @@ def projects(request):
 # Single project
 def project(request, pk):
     project = Project.objects.get(id=pk)
-    context = {"project": project}
-    form = ProjectForm(instance=project)
+    form = ReviewForm()
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        review = form.save(commit=False)
+        review.project = project
+        review.owner = request.user.profiles
+        review.save()
+        # update related method
+        project.getVoteCount
+
+        messages.success(request,"Your review was successfully submitted")
+        return redirect('project',pk=project.id)
+
+    context = {"project": project,"form":form}
     return render(request, "projects/single-project.html", context)
 
 
