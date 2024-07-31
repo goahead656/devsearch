@@ -39,10 +39,11 @@
 
             {% if request.user.profiles.id in project.reviewers %}
             <p>You have already submitted your comments</p>
+
             {% elif request.user.profiles == project.owner %}
             <p>You cannot commit your project</p>
 
-            {% elif request.user.is_authenticated and request.user.profiles.id not in project.reviewers%}
+            {% elif request.user.is_authenticated %}
             <form class="form" action="{% url 'project' project.id %}" method="POST">
               {% csrf_token %}
 
