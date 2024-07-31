@@ -181,7 +181,61 @@ def searchProjects(request):
 
 使用第三方库文件的方式稍后在学完[`pageup`](https://docs.djangoproject.com/en/5.0/topics/pagination/)之后进行实践，官方文档给出了很具体的解释，关于这些翻页的功能，以及一些属性的使用，直接调用`from django.core.paginator import Paginator`即可完成这个库文件的引用。
 
+关于[page](https://docs.djangoproject.com/en/5.0/topics/pagination/#example)这个操作，参考案例中的代码进行书写即可，可以仔细查看这些方法和属性，利用`Paginator`的各种属性，结合`template`语法实现翻页功能，注意：在这里使用了一个以前没有用过的`template`语法，使用了`with`语法，将表单传来的数值传递给`include`的这个`html`文件，具体代码为`{% include 'pagination.html' with queryset=profiles custom_page=custom_page %}`.
 
+##### `request.user`
+
+关于`request.user`的使用，也是一个很关键的话题。`request.user` 是 Django 中的一个重要概念，表示当前登录的用户。`request.user` 是 Django 的 `User` 模型的一个实例，它提供了与当前用户相关的各种属性和方法。
+
+```python
+from django.db import models
+from django.contrib.auth.models import User
+import uuid
+
+# Create your models here.
+class Profiles(models.Model):
+    # set null = true to debug some codes
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, null=True, blank=True
+    )
+    name = models.CharField(max_length=200,blank=True,null=True)
+    email = models.EmailField(max_length=500,blank=True,null=True)
+    username = models.CharField(max_length=200,blank=True,null=True)
+    location = models.CharField(max_length=200,blank=True,null=True)
+    short_intro = models.CharField(max_length=200,blank=True,null=True)
+    bio = models.TextField(blank=True,null=True)
+    profile_image = models.ImageField(
+        null=True,blank=True,upload_to='profiles/',default="profiles/user-default.png"
+    )
+    social_github = models.CharField(max_length=200,blank=True,null=True)
+    social_twitter = models.CharField(max_length=200,blank=True,null=True)
+    social_linkedin = models.CharField(max_length=200,blank=True,null=True)
+    social_youtube = models.CharField(max_length=200,blank=True,null=True)
+    social_website = models.CharField(max_length=200,blank=True,null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(
+        default=uuid.uuid4, unique=True, primary_key=True, editable=False
+    )
+
+    def __str__(self):
+        return str(self.username)
+```
+
+上述模型的定义中，可以使用`profile = request.user.profiles`访问与其关联的模型，这得益于`python`的`orm`特性， `User` 模型通过一对一关系与 `Profile` 模型相关联。这里的 `profiles` 是一个属性或方法，代表当前用户的 `Profile` 实例。如果 `User` 和 `Profile` 之间存在一对多关系，则需要使用 `request.user.profile` 或类似的方式来获取。
+
+- 如果 `profiles` 是一个相关字段的名称，这可能是一个 `RelatedManager`，允许你访问与当前用户关联的 `Profile` 实例。
+- 如果 `profiles` 是用户自定义的方法，它将返回该用户的 `Profile` 实例。
+
+注意：
+
+1. 确保 `User` 模型有一个有效的与 `Profile` 的关系。
+2. 在 Django 中，`request.user` 只有在用户通过认证后才会被设置。若用户未登录，则 `request.user` 将是一个 `AnonymousUser` 对象。
+
+#### 2024.7.31
+
+添加了`review`模块：中规中矩的添加`review`模块，其中特别要注意的是`form`中的`action`的优先级是最高的,如果想要修改`form`提交的的`url`后面的`GET`参数，这个时候就不能填写`form`中action的参数，在`single-project`文件中第60行可以定位到这个文件，可以进一步观察这个参数，对应的文件修改在`login_register.html`的第67行。
+
+添加了`message`模块：中规中举的添加流程，其中需要注意如果一个数据库中出现了两个同样的外键，此时就需要为其中一个外键添加`related_name`这个参数，在以后查询与这个外键相关的联系时，直接使用这个`related_name`这个参数的数值进行访问即可。另外还需要注意的是在保存`form`内容时，一定要将该`form`的所有的参数填写完整，注意登录用户有些数值可以直接在后端获取进行赋值即可，从而可以减少前端数值的填写内容。
 
 
 

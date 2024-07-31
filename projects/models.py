@@ -29,7 +29,8 @@ class Project(models.Model):
 
     @property
     def reviewers(self):
-        queryset = self.review_set.value_list("owner__id",flat=True)
+        # note: this is values_list
+        queryset = self.review_set.values_list("owner__id",flat=True)
         return queryset
 
     @property
