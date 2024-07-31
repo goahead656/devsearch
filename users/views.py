@@ -13,8 +13,6 @@ from .utils import searchProfiles,paginateProfiles
 def loginPage(request):
     page = 'login'
 
-    print(request.GET['next'])
-
     if request.user.is_authenticated:
         return redirect('profiles')
 
@@ -32,7 +30,8 @@ def loginPage(request):
 
         if user is not None:
             login(request,user)
-            print(request.GET['next'])
+            print("request",request)
+            # because this url is not included in urls.py, so we can write it in this way
             return redirect(request.GET['next'] if 'next' in request.GET else 'account')
         else:
             messages.error(request,'Username OR password is incorrect')
