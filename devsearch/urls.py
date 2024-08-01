@@ -28,6 +28,7 @@ urlpatterns = [
     path("projects/", include("projects.urls")),
     # append users urls to help to find users url
     path("",include("users.urls")),
+    path("api/",include("api.urls")),
 ]
 
 # url mapping
