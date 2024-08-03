@@ -237,7 +237,11 @@ class Profiles(models.Model):
 
 添加了`message`模块：中规中举的添加流程，其中需要注意如果一个数据库中出现了两个同样的外键，此时就需要为其中一个外键添加`related_name`这个参数，在以后查询与这个外键相关的联系时，直接使用这个`related_name`这个参数的数值进行访问即可。另外还需要注意的是在保存`form`内容时，一定要将该`form`的所有的参数填写完整，注意登录用户有些数值可以直接在后端获取进行赋值即可，从而可以减少前端数值的填写内容。
 
+#### 2024.8.1
 
+[`django restframe`](https://www.django-rest-framework.org/) 模块:
+
+- install：
 
 
 

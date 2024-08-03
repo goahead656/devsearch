@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     
     "projects.apps.ProjectsConfig",
     "users.apps.UsersConfig",
+
+    # append rest_framework
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
