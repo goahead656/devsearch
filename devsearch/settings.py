@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
 
     # append rest_framework
-    "rest_framework"
+    "rest_framework",
+    
+    "corsheaders",
 ]
 
 # append jwt token
@@ -106,6 +108,9 @@ MIDDLEWARE = [
 
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    
+    "corsheaders.middleware.CorsMiddleware",
+    
 ]
 
 ROOT_URLCONF = "devsearch.urls"
@@ -172,6 +177,8 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Static files (CSS, JavaScript, Images)
