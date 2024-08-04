@@ -241,7 +241,95 @@ class Profiles(models.Model):
 
 [`django restframe`](https://www.django-rest-framework.org/) 模块:
 
-- install：
+- install：`pip install djangorestframework`
+
+- [`request and response data `](https://www.django-rest-framework.org/tutorial/2-requests-and-responses/)
+
+- `model serialization`
+
+  - [`modelserializers`](https://www.django-rest-framework.org/tutorial/1-serialization/#using-modelserializers)
+
+  - [`use our Serializer`](https://www.django-rest-framework.org/tutorial/1-serialization/#writing-regular-django-views-using-our-serializer)
+
+  - 同时可以自定义序列化模型的一些参数，例如如下所示的`model`
+
+    - ```python
+      class ProjectSerializer(serializers.ModelSerializer):
+          # override some attribute
+          owner = ProfileSerializer(many=False)
+          tags = TagSerializer(many=True)
+          # this is another way to use this model
+          reviews = serializers.SerializerMethodField()
+          
+          class Meta:
+              model = Project
+              fields = '__all__'
+              
+          # get_reviews is correlated with reviews
+          def get_reviews(self,obj):
+              reviews = obj.review_set.all()
+              serializer = ReviewSerializer(reviews,many=True)
+              return serializer.data
+      ```
+
+    - owner和tags是该类中的属性，但是该属性并没有具体的信息，在此处对这些属性进行定义，并将其添加在后端进行显示，最终将该数据库中的信息补全。
 
 
+[`django simple jwt`](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/):
 
+- [install](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html#installation)
+
+- [setting配置](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html)
+
+  - ```python
+    # Django project settings.py
+    
+    from datetime import timedelta
+    ...
+    
+    SIMPLE_JWT = {
+        "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+        "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+        "ROTATE_REFRESH_TOKENS": False,
+        "BLACKLIST_AFTER_ROTATION": False,
+        "UPDATE_LAST_LOGIN": False,
+    
+        "ALGORITHM": "HS256",
+        "SIGNING_KEY": settings.SECRET_KEY,
+        "VERIFYING_KEY": "",
+        "AUDIENCE": None,
+        "ISSUER": None,
+        "JSON_ENCODER": None,
+        "JWK_URL": None,
+        "LEEWAY": 0,
+    
+        "AUTH_HEADER_TYPES": ("Bearer",),
+        "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+        "USER_ID_FIELD": "id",
+        "USER_ID_CLAIM": "user_id",
+        "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
+    
+        "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+        "TOKEN_TYPE_CLAIM": "token_type",
+        "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
+    
+        "JTI_CLAIM": "jti",
+    
+        "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
+        "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
+        "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
+    
+        "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
+        "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
+        "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
+        "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
+        "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
+        "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
+    }
+    ```
+
+[django cors headers](https://pypi.org/project/django-cors-headers/)  :
+
+- [`install and setting`](https://pypi.org/project/django-cors-headers/)
+- 是一个Django插件，**用于处理跨域资源共享（CORS）问题**。 它允许从指定的来源或所有来源访问管理站点。
+- 解决了一个文件跨域的问题，比如说前端文件无法访问到后端文件，比如报错`don't have access to have it set up`，这时候就要下载`djano_cors_header`，在`setting`中配置相关信息
