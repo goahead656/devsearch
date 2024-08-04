@@ -23,22 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let token = localStorage.getItem('token');
 
     if (token) {
-        if (loginBtn) {
-            loginBtn.remove();
-        }
+        loginBtn.remove();
     } else {
-        if (logoutBtn) {
-            logoutBtn.remove();
-        }
+        logoutBtn.remove();
     }
 
-    if (logoutBtn) {
         logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
             localStorage.removeItem('token');
             window.location = 'file:///D:/code/python/django/devsearch/frontend/login.html';
         });
-    }
 });
 
 
