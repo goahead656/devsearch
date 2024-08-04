@@ -24,8 +24,8 @@ let buildProjects = (projects) =>{
                     <div>
                         <div class="card--header">
                             <h3>${project.title}</h3>
-                            <strong class="vote--option">&#43;</strong>
-                            <strong class="vote--option">&#8722;</strong>
+                            <strong class="vote--option" data-vote='up' data-project="${project.id}">&#43;</strong>
+                            <strong class="vote--option" data-vote='down' data-project="${project.id}">&#8722;</strong>
                         </div>
                         <i>${project.vote_ratio}</i>
                     </div>
@@ -34,6 +34,35 @@ let buildProjects = (projects) =>{
                 </div>
         `
         projectsWrapper.innerHTML += projectCard
+    }
+    addVoteEvents()
+}
+
+let addVoteEvents = ()=>{
+    let voteBtns = document.getElementsByClassName("vote--option")
+    // console.log('VOTE BUTTONS:',voteBtns)
+    for(let i=0;i<voteBtns.length;i++){
+        voteBtns[i].addEventListener('click',(e) =>{
+            // get token from frontend
+            let token = localStorage.getItem('token')
+
+            // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyODQ1ODQ3LCJpYXQiOjE3MjI3NTk0NDcsImp0aSI6IjE3Yzg4OGYxYzcxYTRkYTBiNjFlMDg2ZGI4OWFmMjk2IiwidXNlcl9pZCI6NH0.TBx_1Lcz5oyd_S5mL3TvGXfng90_OVvxUFMxn4H451M'
+            let vote = e.target.dataset.vote
+            let project = e.target.dataset.project
+
+            fetch(`http://127.0.0.1:8000/api/projects/${project}/vote/`,{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body:JSON.stringify({'value':vote})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:',data)
+                })
+        })
     }
 }
 

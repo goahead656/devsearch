@@ -47,7 +47,9 @@ class Project(models.Model):
 
 
 class Review(models.Model):
-    VOTE_TYPE = (("up", "Up Vote"), ("down", "Down Vote"))
+    VOTE_TYPE = (
+        ("up", "Up Vote"), 
+        ("down", "Down Vote"))
 
     # append review's owner
     owner = models.ForeignKey(Profiles,on_delete=models.CASCADE,null=True)
