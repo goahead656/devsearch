@@ -1,7 +1,7 @@
-let loginBtn = document.getElementById('login-btn')
-let logoutBtn = document.getElementById('logout-btn')
+// let loginBtn = document.getElementById('login-btn')
+// let logoutBtn = document.getElementById('logout-btn')
 
-let token = localStorage.getItem('token')
+// let token = localStorage.getItem('token')
 
 // if(token){
 //     loginBtn.remove()
@@ -14,6 +14,32 @@ let token = localStorage.getItem('token')
 //     localStorage.removeItem('token')
 //     window.location = 'file:///D:/code/python/django/devsearch/frontend/login.html'
 // })
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    let loginBtn = document.getElementById('login-btn');
+    let logoutBtn = document.getElementById('logout-btn');
+
+    let token = localStorage.getItem('token');
+
+    if (token) {
+        if (loginBtn) {
+            loginBtn.remove();
+        }
+    } else {
+        if (logoutBtn) {
+            logoutBtn.remove();
+        }
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('token');
+            window.location = 'file:///D:/code/python/django/devsearch/frontend/login.html';
+        });
+    }
+});
 
 
 let projectsUrl = 'http://127.0.0.1:8000/api/projects/'
